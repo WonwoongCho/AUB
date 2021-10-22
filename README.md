@@ -11,7 +11,14 @@ Source code for the paper:
 - CPU or NVIDIA GPU + CUDA CuDNN
 
 ## Getting Started
+
 ### Installation
+Download files from https://anonymous.4open.science/r/AUB
+(Note that the individual file should be downloaded respectively.)
+
+### Dataset
+The dataset is exactly same with the original MNIST data (http://yann.lecun.com/exdb/mnist/)
+`unzip data.zip`
 
 #### Environment setup
 1. `conda env create -f environment.yml`
