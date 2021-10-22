@@ -71,10 +71,10 @@ def main(config):
     lr = config.lr
     setting = config.setting
 
-
-    train_dir = os.path.join('/local/scratch/a/cho436/experiment_results', f'train_results_{setting}')
-    val_dir = os.path.join('/local/scratch/a/cho436/experiment_results', f'val_results_{setting}')
-    model_save_dir = '/local/scratch/a/cho436/trained_models'
+    result_dir = './'
+    train_dir = os.path.join(result_dir, 'experiment_results', f'train_results_{setting}')
+    val_dir = os.path.join(result_dir, 'experiment_results', f'val_results_{setting}')
+    model_save_dir = './trained_models'
 
     device = torch.device(f'cuda:{gpu_id}') if torch.cuda.is_available() else torch.device('cpu')
     rescaling = lambda x: (x - .5) * 2.
@@ -110,7 +110,7 @@ def main(config):
                   Q_init=Q_init_method)
 
     if load_Q:
-        pretrained_dict = torch.load(f'/local/scratch/a/cho436/trained_models/Q_MNIST.pth')
+        pretrained_dict = torch.load(f'./trained_models/Q_MNIST.pth')
         Q.model.load_state_dict(pretrained_dict)
 
     if torch.cuda.is_available():
@@ -128,7 +128,7 @@ def main(config):
     param_groups = []
     for i, T in enumerate(T_arr):
         if load_T:
-            pretrained_dict = torch.load(f'/local/scratch/a/cho436/trained_models/T{i}_alignflow.pth')
+            pretrained_dict = torch.load(f'./trained_models/T{i}_alignflow.pth')
             T.load_state_dict(pretrained_dict)
 
         else:
@@ -388,7 +388,7 @@ if __name__ == '__main__':
 
     parser.add_argument('--Q_num_scales', type=int, default=4, help='')
     parser.add_argument('--Q_num_blocks', type=int, default=4, help='')
-    parser.add_argument('--Q_num_channels_g', type=int, default=32, help='')
+    parser.add_argument('--Q_num_channels_g', type=int, default=16, help='')
     parser.add_argument('--Q_init_method', type=str, default='identity') # normal, identity, xavier
     parser.add_argument('--Q_lr', type=float, default=2e-4)
     parser.add_argument('--num_iter_for_Q', type=int, default=1)
@@ -413,7 +413,7 @@ if __name__ == '__main__':
     parser.add_argument('--start_epoch', type=int, default=0)
 
     # Directories.
-    parser.add_argument('--data_dir', type=str, default='/local/scratch/a/cho436/data')
+    parser.add_argument('--data_dir', type=str, default='./data')
 
     config = parser.parse_args()
 
