@@ -12,11 +12,6 @@ Source code for the paper:
 
 ## Getting Started
 ### Installation
-#### Download the code
-```bash
-git clone 
-cd 
-```
 
 #### Environment setup
 1. `conda env create -f environment.yml`
