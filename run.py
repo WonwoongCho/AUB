@@ -42,6 +42,9 @@ def main(config):
     os.environ['PYTHONHASHSEED'] = str(seed)
 
     data_dir = config.data_dir
+    result_dir = config.result_dir
+    model_save_dir = config.model_save_dir
+
     num_epoch = config.num_epoch
     batch_size = config.batch_size
     num_workers = config.num_workers
@@ -71,10 +74,9 @@ def main(config):
     lr = config.lr
     setting = config.setting
 
-    result_dir = './'
     train_dir = os.path.join(result_dir, 'experiment_results', f'train_results_{setting}')
     val_dir = os.path.join(result_dir, 'experiment_results', f'val_results_{setting}')
-    model_save_dir = './trained_models'
+
 
     device = torch.device(f'cuda:{gpu_id}') if torch.cuda.is_available() else torch.device('cpu')
     rescaling = lambda x: (x - .5) * 2.
@@ -414,6 +416,9 @@ if __name__ == '__main__':
 
     # Directories.
     parser.add_argument('--data_dir', type=str, default='./data')
+    parser.add_argument('--model_save_dir', type=str, default='./trained_models')
+    parser.add_argument('--result_dir', type=str, default='./results')
+
 
     config = parser.parse_args()
 
